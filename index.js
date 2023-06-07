@@ -1,3 +1,4 @@
+
 // Initialize variables
 let title = getUserInput("Enter project title:")
 let description = getUserInput("Enter project description:")
@@ -16,7 +17,7 @@ let readmeContent = generateReadmeContent(title, description, installationInstru
 saveToFile("README.md", readmeContent)
 
 // Function to generate README content
-function generateReadmeContent(title, description, installationInstructions, usageInformation, contributionGuidelines, testInstructions, license, githubUsername, emailAddress):
+function generateReadmeContent(title, description, installationInstructions, usageInformation, contributionGuidelines, testInstructions, license, githubUsername, emailAddress){
     let readmeContent = ""
     
     // Generate the badge for the chosen license
@@ -44,12 +45,30 @@ function generateReadmeContent(title, description, installationInstructions, usa
     readmeContent += `You can also visit my GitHub profile: [${githubUsername}](https://github.com/${githubUsername})\n\n`
     
     return readmeContent
+}
+    
 
 // Function to generate the license badge
-function generateLicenseBadge(license):
+function generateLicenseBadge(license){
     // Logic to determine the badge based on the chosen license
-    // Return the appropriate badge
+    if(license === "MIT"){
+        return "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+    } else if(license === "Apache 2.0"){
+        return "[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)"
+    } else if(license === "GPL 3.0"){
+        return "[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)"
+    }else if(license === "BSD 3"){
+        return "[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)"
+    } else if(license === "None"){
+        return ""
+    }
+};
+    
 
 // Function to save content to a file
-function saveToFile(filename, content):
-    // Save the content to the specified file
+function saveToFile(filename, content){
+    // save the content to the specified file
+    let filename = prompt("Enter the filename to save the README to:")
+    let content = generateReadmeContent();
+};
+    
