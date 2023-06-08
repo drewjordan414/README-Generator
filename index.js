@@ -13,7 +13,7 @@ const content = [
     {
         type: 'input',
         message: 'What is your email address?',
-        name: '',
+        name: 'email',
     },
     {
         type: 'input',
@@ -58,11 +58,11 @@ const content = [
 // function to generate markdown for README
 function generateMarkdown(response) {
     return `
-    # ${answers.title}
+    # ${response.title}
 
     ## Description
     
-    ${answers.description}
+    ${response.description}
     
     ## Table of Contents
     
@@ -75,30 +75,49 @@ function generateMarkdown(response) {
     
     ## Installation
     
-    ${answers.installation}
+    ${response.installation}
     
     ## Usage
     
-    ${answers.usage}
+    ${response.usage}
     
     ## License
     
-    This project is covered under the ${answers.license} License.
+    This project is covered under the ${response.license} License.
     
     ## Contributing
     
-    ${answers.contribution}
+    ${response.contribution}
     
     ## Tests
     
-    ${answers.tests}
+    ${response.tests}
     
     ## Questions
     
-    For any questions, please reach out to [${answers.username}](https://github.com/${answers.username}) or [Email me](mailto:${answers.email})
+    For any questions, please reach out to [${response.username}](https://github.com/${response.username}) or [Email me](mailto:${response.email})
     `;
 }
 
 // inquirer
-
-// save the file 
+inquirer
+    .prompt(content)
+    .then((response) => {
+        console.log(response);
+        // save the file 
+        const readME = generateMarkdown(response);
+        fs.writeFile('README.md', readME, (err) =>
+            err ? console.log(err) : console.log('Successfully created README.md!'));
+    })
+    // error catch
+    .catch((error) => {
+        if (error.isTtyError){
+            // log error
+            console.log("Prompt couldn't be rendered in the current environment");
+            console.error(error);
+        } else{
+            // log error
+            console.log("Something else went wrong");
+            console.error(error);
+        }
+    });
