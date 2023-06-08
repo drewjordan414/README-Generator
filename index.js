@@ -4,37 +4,101 @@ const fs = require('fs');
 
 
 // array of questions for user
-inquirer
-    .prompt([
-        {
-            type: 'input',
-            message: 'What is your name?',
-            name: 'name',
-        },
-        {
-            type: 'input',
-            message: '',
-            name: '',
-        },
-        {
-            type: 'input',
-            message: '',
-            name: '',
-        },
-        {
-            type: 'input',
-            message: '',
-            name: '',
-        },
-        {
-            type: 'input',
-            message: '',
-            name: '',
-        }
-            .then((response) => {
-                console.log(response);
-                fs.writeFile('README.md', htmlPageContent, (err) =>
-                    err ? console.log(err) : console.log('Successfully created README.md!')
-                );
-            })
-    ])
+const content = [
+    {
+        type: 'input',
+        message: 'What is the title of your project?',
+        name: 'title',
+    },
+    {
+        type: 'input',
+        message: 'What is your email address?',
+        name: '',
+    },
+    {
+        type: 'input',
+        message: 'What is your Github username?',
+        name: 'username',
+    },
+    {
+        type: 'checkbox',
+        choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
+        message: 'What license would you like to use?',
+        name: 'license',
+    },
+    {
+        type: 'input',
+        message: 'What is the description of your project?',
+        name: 'description',
+    },
+    {
+        type: 'input',
+        message: 'What are the installation instructions for your project?',
+        name: 'installation',
+    },
+    {
+        type: "input",
+        message: "What is the usage information for your project?",
+        name: "usage",
+    },
+    {
+        type: "input",
+        message: "What are the contribution guidelines for your project?",
+        name: "contribution",
+    },
+    {
+        type: "input",
+        message: "What are the test instructions for your project?",
+        name: "tests",
+    },
+
+
+
+];
+// function to generate markdown for README
+function generateMarkdown(response) {
+    return `
+    # ${answers.title}
+
+    ## Description
+    
+    ${answers.description}
+    
+    ## Table of Contents
+    
+    - [Installation](#installation)
+    - [Usage](#usage)
+    - [License](#license)
+    - [Contributing](#contributing)
+    - [Tests](#tests)
+    - [Questions](#questions)
+    
+    ## Installation
+    
+    ${answers.installation}
+    
+    ## Usage
+    
+    ${answers.usage}
+    
+    ## License
+    
+    This project is covered under the ${answers.license} License.
+    
+    ## Contributing
+    
+    ${answers.contribution}
+    
+    ## Tests
+    
+    ${answers.tests}
+    
+    ## Questions
+    
+    For any questions, please reach out to [${answers.username}](https://github.com/${answers.username}) or [Email me](mailto:${answers.email})
+    `;
+}
+
+// inquirer
+
+// save the file 
