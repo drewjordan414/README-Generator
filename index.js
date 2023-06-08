@@ -20,6 +20,12 @@ const content = [
         message: 'What is your Github username?',
         name: 'username',
     },
+    // ADD BADGE
+    {
+        type: 'input',
+        message: 'What is the badge link?', // we gonna needa edit you
+        name: 'badge',
+    },
     {
         type: 'checkbox',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
@@ -57,6 +63,9 @@ const content = [
 ];
 // function to generate markdown for README
 function generateMarkdown(response) {
+
+    // ADD TABLE OF CONTENTS
+
     return `
     # ${response.title}
 

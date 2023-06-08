@@ -1,5 +1,23 @@
 # README-Generator
 
+## Description
+This is a command-line application that dynamically generates a professional README.md file from a user's input using the Inquirer package. The application will be invoked with the following command:
+```bash
+node index.js
+```
+The user will be prompted for their GitHub username and other information pertaining to the project the README is for. The README will be populated with the following:
+* At least one badge
+* Project title
+* Description
+* Table of Contents
+* Installation
+* Usage
+* License
+* Contributing
+* Tests
+* Questions
+
+
 ## Acceptance Criteria
 * GIVEN a command-line application that accepts user input
 * WHEN I am prompted for information about my application repository
