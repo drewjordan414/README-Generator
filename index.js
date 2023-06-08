@@ -22,7 +22,7 @@ const content = [
         name: 'username',
     },
     {
-        type: 'checkbox',
+        type: 'list',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
         message: 'What license would you like to use?',
         name: 'license',
@@ -59,9 +59,7 @@ const content = [
 // function to generate markdown for README
 function generateMarkdown(response) {
 
-    // Badge
-    let license = badge(response.license[0]);
-    console.log(license);
+    // Badge Function
     function badge(license) {
         if (response.license == 'MIT') {
             response.license = `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
@@ -79,16 +77,16 @@ function generateMarkdown(response) {
             response.license = `No License`;
         }
     }
-    
+    let licenseBadge = badge(response.license[0]);
 
 
     // ADD TABLE OF CONTENTS
 
     return `
-    # ${response.title}
+    # ${response.title} ${licenseBadge}
 
     ## License Badge
-    ${response.license}
+    This project is covered under the ${response.license} License.
 
     ## Description
     
@@ -133,7 +131,6 @@ function generateMarkdown(response) {
 inquirer
     .prompt(content)
     .then((response) => {
-        console.log(response);
         // save the file 
         const readME = generateMarkdown(response);
         fs.writeFile('README.md', readME, (err) =>
