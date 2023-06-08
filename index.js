@@ -60,6 +60,9 @@ function generateMarkdown(response) {
     return `
     # ${response.title}
 
+    ## License Badge
+    ${response.license}
+
     ## Description
     
     ${response.description}
