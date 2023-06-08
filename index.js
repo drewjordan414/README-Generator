@@ -1,6 +1,7 @@
 // housekeeping 
 const inquirer = require('inquirer');
 const fs = require('fs');
+const { log } = require('console');
 
 
 // array of questions for user
@@ -20,14 +21,8 @@ const content = [
         message: 'What is your Github username?',
         name: 'username',
     },
-    // ADD BADGE
     {
-        type: 'input',
-        message: 'What is the badge link?', // we gonna needa edit you
-        name: 'badge',
-    },
-    {
-        type: 'checkbox',
+        type: 'list',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
         message: 'What license would you like to use?',
         name: 'license',
@@ -64,13 +59,34 @@ const content = [
 // function to generate markdown for README
 function generateMarkdown(response) {
 
+    // Badge Function
+    function badge(license) {
+        if (response.license == 'MIT') {
+            response.license = `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+            console.log(response.license);
+        } else if (response.license == 'Apache') {
+            response.license = `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)]`;
+            console.log(response.license);
+        } else if (response.license == 'GPL') {
+            response.license = `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]`;
+            console.log(response.license);
+        } else if (response.license == 'BSD') {
+            response.license = `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)]`;
+            console.log(response.license);
+        } else if (response.license == 'None') {
+            response.license = `No License`;
+        }
+    }
+    let licenseBadge = badge(response.license[0]);
+
+
     // ADD TABLE OF CONTENTS
 
     return `
-    # ${response.title}
+    # ${response.title} ${licenseBadge}
 
     ## License Badge
-    ${response.license}
+    This project is covered under the ${response.license} License.
 
     ## Description
     
@@ -115,7 +131,6 @@ function generateMarkdown(response) {
 inquirer
     .prompt(content)
     .then((response) => {
-        console.log(response);
         // save the file 
         const readME = generateMarkdown(response);
         fs.writeFile('README.md', readME, (err) =>
@@ -123,11 +138,11 @@ inquirer
     })
     // error catch
     .catch((error) => {
-        if (error.isTtyError){
+        if (error.isTtyError) {
             // log error
             console.log("Prompt couldn't be rendered in the current environment");
             console.error(error);
-        } else{
+        } else {
             // log error
             console.log("Something else went wrong");
             console.error(error);
