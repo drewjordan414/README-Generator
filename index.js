@@ -20,12 +20,6 @@ const content = [
         message: 'What is your Github username?',
         name: 'username',
     },
-    // ADD BADGE
-    {
-        type: 'input',
-        message: 'What is the badge link?', // we gonna needa edit you
-        name: 'badge',
-    },
     {
         type: 'checkbox',
         choices: ['MIT', 'Apache', 'GPL', 'BSD', 'None'],
@@ -63,6 +57,20 @@ const content = [
 ];
 // function to generate markdown for README
 function generateMarkdown(response) {
+
+    // Badge
+    if (response.license == 'MIT') {
+        response.license = `[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)`;
+    }else if (response.license == 'Apache') {
+        response.license = `[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)]`;
+    }else if (response.license == 'GPL') {
+        response.license = `[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)]`;
+    }else if (response.license == 'BSD') {
+        response.license = `[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)]`;
+    }else if (response.license == 'None') {
+        response.license = `No License`;
+    }
+
 
     // ADD TABLE OF CONTENTS
 
