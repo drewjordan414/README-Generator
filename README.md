@@ -17,6 +17,8 @@ The user will be prompted for their GitHub username and other information pertai
 * Tests
 * Questions
 
+## Images
+![README-Generator](./assets/terminal.png)
 
 ## Acceptance Criteria
 * GIVEN a command-line application that accepts user input
